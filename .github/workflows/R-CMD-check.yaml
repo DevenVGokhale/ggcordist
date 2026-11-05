@@ -58,3 +58,16 @@ jobs:
         with:
           upload-snapshots: true
           build_args: 'c("--no-manual")'
+
+      # Temporary: surface example/test output as an annotation (visible via the API)
+      - name: Show failing check output
+        if: failure()
+        shell: bash
+        run: |
+          for f in check/ggcordist.Rcheck/ggcordist-Ex.Rout check/ggcordist.Rcheck/tests/testthat.Rout.fail; do
+            if [ -f "$f" ]; then
+              msg=$(tail -n 30 "$f")
+              msg="${msg//'%'/'%25'}"; msg="${msg//$'\r'/'%0D'}"; msg="${msg//$'\n'/'%0A'}"
+              echo "::error title=$(basename $f)::$msg"
+            fi
+          done
