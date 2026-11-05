@@ -1,0 +1,111 @@
+---
+title: "Visualizing distributions of covariance matrices"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Visualizing distributions of covariance matrices}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 9,
+  fig.height = 6,
+  dpi = 80
+)
+```
+
+```{r setup}
+library(ggcordist)
+```
+
+ggcordist implements the four-layer display of Tokuda, Goodrich, Van Mechelen,
+Gelman and Tuerlinckx, *Visualizing Distributions of Covariance Matrices*,
+for draws of a covariance or correlation matrix, for example from a Stan fit.
+
+1. histograms of `log(sd)` and of a correlation,
+2. scatterplots of pairs of log standard deviations and correlations,
+3. equiprobability ellipses of a bivariate normal with the sampled 2 x 2
+   covariance,
+4. effective variance and effective dependence.
+
+Draws in the lowest and highest 5% of effective dependence are coloured blue
+and red in every panel.
+
+## Reference distributions
+
+The package ships samplers for the distributions in the paper, which are
+useful as priors to compare against. An inverse-Wishart with `df = k + 1` and
+identity scale (the paper's Figure 1):
+
+```{r iw}
+set.seed(1234)
+iw <- r_inv_wishart(1000, k = 4)
+iw
+plot_tableau(iw)
+```
+
+Each correlation is marginally uniform, but the joint distribution piles up in
+the corners of the support, and large standard deviations go with extreme
+correlations.
+
+A separation-strategy prior with an LKJ(1) correlation matrix and half-normal
+standard deviations behaves quite differently:
+
+```{r lkj}
+sep <- r_separation(1000, k = 4, cor_dist = "lkj", eta = 1)
+plot_tableau(sep)
+```
+
+## Your own Stan fit
+
+`as_cov_draws()` converts the matrix parameters of a Stan fit. For a model
+with parameters `Omega` (a correlation matrix) and `tau` (a vector of scales):
+
+```{r stan, eval = FALSE}
+fit <- cmdstanr::cmdstan_model("model.stan")$sample(data = stan_data)
+
+post <- as_cov_draws(fit, par = "Omega", type = "cor", sd_par = "tau")
+plot_tableau(post)
+```
+
+The same call works for `rstan::stanfit` objects and for `posterior` draws.
+Use `type = "cov"` for a covariance matrix parameter, or `"chol_cor"` and
+`"chol_cov"` for Cholesky factors. For `brms`, name the grouping factor:
+
+```{r brms, eval = FALSE}
+post <- as_cov_draws(brms_fit, group = "subject")
+```
+
+The paper's grid assumes exchangeable variables, so one panel per type of pair
+suffices. Posterior draws usually are not exchangeable: choose which variables
+to show with `idx`, or look at every pair:
+
+```{r pairs}
+plot_tableau(iw, idx = c(2, 3, 4, 1))
+plot_pairs(r_inv_wishart(500, k = 3))
+```
+
+## Prior versus posterior
+
+`plot_compare()` overlays several sets of draws.
+
+```{r compare}
+plot_compare(list(
+  `LKJ(1)` = r_lkj(1000, k = 3, eta = 1),
+  `LKJ(10)` = r_lkj(1000, k = 3, eta = 10)
+))
+```
+
+## Other displays
+
+```{r other}
+plot_ellipses(iw, i = 1, j = 2)
+plot_effective(r_lkj(1000, k = 20))
+plot_eigen(r_lkj(500, k = 5))
+```
+
+`plot_cor3d()` draws the three-dimensional scatterplot of three correlations
+with `rgl` (not run here).

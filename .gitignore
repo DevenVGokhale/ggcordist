@@ -1,0 +1,11 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.Rcheck/
+*.tar.gz
+inst/doc
+docs/
+.vscode/
+# the paper (copyrighted) and its extracted text are local working copies
+reference/

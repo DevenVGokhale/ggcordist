@@ -1,0 +1,40 @@
+Package: ggcordist
+Title: Visualize Distributions of Covariance and Correlation Matrices
+Version: 0.0.0.9000
+Authors@R: 
+    person("Deven", "Gokhale", , "vgdeven@gmail.com", role = c("aut", "cre"))
+Description: Visualizes posterior (or prior) draws of covariance and
+    correlation matrices, for example from a 'Stan' fit, using the
+    four-layer approach of Tokuda, Goodrich, Van Mechelen, Gelman and
+    Tuerlinckx, "Visualizing Distributions of Covariance Matrices".
+    The layers are histograms of log standard deviations and
+    correlations, bivariate scatterplots, equiprobability ellipses, and
+    effective variance and effective dependence. Samplers for the
+    Wishart, inverse-Wishart, scaled inverse-Wishart, LKJ and separation
+    strategy distributions are included for reference and for
+    prior-versus-posterior comparisons.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Depends: 
+    R (>= 4.1.0)
+Imports: 
+    cli,
+    ggplot2 (>= 3.4.0),
+    patchwork,
+    posterior,
+    rlang,
+    stats
+Suggests: 
+    brms,
+    cmdstanr,
+    knitr,
+    rgl,
+    rmarkdown,
+    rstan,
+    testthat (>= 3.0.0),
+    vdiffr
+Additional_repositories: https://stan-dev.r-universe.dev
+Config/testthat/edition: 3
+VignetteBuilder: knitr
+Config/roxygen2/version: 8.1.0
