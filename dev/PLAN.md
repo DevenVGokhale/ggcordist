@@ -34,7 +34,7 @@ Status key: `[x]` done, `[~]` done but not fully verified, `[ ]` not started.
 
 - [x] DESCRIPTION, MIT licence, NAMESPACE via roxygen2, tests/, vignettes/
 - [x] `.Rbuildignore`, `.gitignore`, NEWS.md, README.md
-- [~] GitHub Actions workflow for R CMD check (added; first run not yet confirmed green)
+- [x] GitHub Actions workflow for R CMD check (green on all 5 jobs, 2026-11-05)
 - [ ] `usethis::use_pkgdown()` site (optional)
 - [x] Replace `<github-user>` placeholder in README install instructions
 - [x] Initial git commit and push to https://github.com/DevenVGokhale/ggcordist
@@ -101,11 +101,13 @@ Status key: `[x]` done, `[~]` done but not fully verified, `[ ]` not started.
 - [x] `R CMD check --no-manual` on Windows: Status OK (2026-11-05), run with
       `_R_CHECK_FORCE_SUGGESTS_=false`
 - [ ] Check with Suggests installed (needs `rgl`, `vdiffr`)
-- [ ] Check on Linux / macOS (GitHub Actions workflow added; waiting on first run)
+- [x] Check on Linux / macOS (GitHub Actions: macOS, Windows, Ubuntu release/devel/oldrel-1 all pass)
 - [ ] `devtools::spell_check()`, `urlchecker`
 
 ## Known issues / ideas
 
+- Axis labels must stay ASCII: Greek characters fail on CI (C locale, pdf device).
+  A plotmath-based label (`expression(rho[12])`) would restore Greek letters safely.
 - `Rscript` is not on the PATH in the integrated terminal; run checks from the R
   session or add R's `bin` folder to PATH.
 - The paper's package, VisCov, uses base graphics; ggcordist output will look different.
@@ -121,3 +123,6 @@ Status key: `[x]` done, `[~]` done but not fully verified, `[ ]` not started.
 - 2026-11-05: Added `.github/workflows/R-CMD-check.yaml` (macOS, Windows, Ubuntu
   release/devel/oldrel-1; hard dependencies only, so Stan packages and rgl are
   not installed on CI).
+- 2026-11-05: First CI run failed on all platforms: Greek letters in axis labels
+  could not be drawn in the CI's non-UTF-8 locale. Switched labels to ASCII
+  (`rho[1,2]`, `log(sd[1])`); all 5 jobs now pass.
