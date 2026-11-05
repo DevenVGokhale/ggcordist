@@ -34,7 +34,7 @@ Status key: `[x]` done, `[~]` done but not fully verified, `[ ]` not started.
 
 - [x] DESCRIPTION, MIT licence, NAMESPACE via roxygen2, tests/, vignettes/
 - [x] `.Rbuildignore`, `.gitignore`, NEWS.md, README.md
-- [ ] GitHub Actions workflow for R CMD check
+- [~] GitHub Actions workflow for R CMD check (added; first run not yet confirmed green)
 - [ ] `usethis::use_pkgdown()` site (optional)
 - [x] Replace `<github-user>` placeholder in README install instructions
 - [x] Initial git commit and push to https://github.com/DevenVGokhale/ggcordist
@@ -101,7 +101,7 @@ Status key: `[x]` done, `[~]` done but not fully verified, `[ ]` not started.
 - [x] `R CMD check --no-manual` on Windows: Status OK (2026-11-05), run with
       `_R_CHECK_FORCE_SUGGESTS_=false`
 - [ ] Check with Suggests installed (needs `rgl`, `vdiffr`)
-- [ ] Check on Linux / macOS (GitHub Actions)
+- [ ] Check on Linux / macOS (GitHub Actions workflow added; waiting on first run)
 - [ ] `devtools::spell_check()`, `urlchecker`
 
 ## Known issues / ideas
@@ -118,3 +118,6 @@ Status key: `[x]` done, `[~]` done but not fully verified, `[ ]` not started.
   pass, `R CMD check` Status OK. Plan saved to `dev/PLAN.md`.
 - 2026-11-05: Published to GitHub (`main`). `reference/` (paper PDF and text)
   is git-ignored for copyright reasons.
+- 2026-11-05: Added `.github/workflows/R-CMD-check.yaml` (macOS, Windows, Ubuntu
+  release/devel/oldrel-1; hard dependencies only, so Stan packages and rgl are
+  not installed on CI).

@@ -1,5 +1,7 @@
 # ggcordist
 
+[![R-CMD-check](https://github.com/DevenVGokhale/ggcordist/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/DevenVGokhale/ggcordist/actions/workflows/R-CMD-check.yaml)
+
 Visualize distributions of covariance and correlation matrices, such as
 posterior draws from a Stan model, following the four-layer method of Tokuda,
 Goodrich, Van Mechelen, Gelman and Tuerlinckx, *Visualizing Distributions of
