@@ -89,11 +89,11 @@ cov_palette <- c(mid = "grey55", low = "#2C7BB6", high = "#D7191C")
 var_labels <- function(x, idx) {
   l <- x$labels[idx]
   list(
-    lsd = sprintf("log(\u03c3[%s])", l),
-    r12 = if (length(idx) >= 2L) sprintf("\u03c1[%s,%s]", l[1], l[2]),
-    r23 = if (length(idx) >= 3L) sprintf("\u03c1[%s,%s]", l[2], l[3]),
-    r13 = if (length(idx) >= 3L) sprintf("\u03c1[%s,%s]", l[1], l[3]),
-    r34 = if (length(idx) >= 4L) sprintf("\u03c1[%s,%s]", l[3], l[4])
+    lsd = sprintf("log(sd[%s])", l),
+    r12 = if (length(idx) >= 2L) sprintf("rho[%s,%s]", l[1], l[2]),
+    r23 = if (length(idx) >= 3L) sprintf("rho[%s,%s]", l[2], l[3]),
+    r13 = if (length(idx) >= 3L) sprintf("rho[%s,%s]", l[1], l[3]),
+    r34 = if (length(idx) >= 4L) sprintf("rho[%s,%s]", l[3], l[4])
   )
 }
 

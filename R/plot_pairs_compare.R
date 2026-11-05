@@ -23,7 +23,7 @@ plot_pairs <- function(x, extreme = 0.05, bins = 30, max_vars = 12, ...) {
   if (!is.null(x$sd)) {
     for (i in seq_len(K)) {
       vars[[length(vars) + 1L]] <- list(
-        name = sprintf("log(\u03c3[%s])", x$labels[i]),
+        name = sprintf("log(sd[%s])", x$labels[i]),
         values = log(x$sd[, i])
       )
     }
@@ -32,7 +32,7 @@ plot_pairs <- function(x, extreme = 0.05, bins = 30, max_vars = 12, ...) {
     i <- lower[r, 1]
     j <- lower[r, 2]
     vars[[length(vars) + 1L]] <- list(
-      name = sprintf("\u03c1[%s,%s]", x$labels[j], x$labels[i]),
+      name = sprintf("rho[%s,%s]", x$labels[j], x$labels[i]),
       values = x$cor[, i, j]
     )
   }
