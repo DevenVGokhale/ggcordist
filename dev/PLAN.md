@@ -36,8 +36,8 @@ Status key: `[x]` done, `[~]` done but not fully verified, `[ ]` not started.
 - [x] `.Rbuildignore`, `.gitignore`, NEWS.md, README.md
 - [ ] GitHub Actions workflow for R CMD check
 - [ ] `usethis::use_pkgdown()` site (optional)
-- [ ] Replace `<github-user>` placeholder in README install instructions
-- [ ] Initial git commit (repo is initialised, nothing committed yet)
+- [x] Replace `<github-user>` placeholder in README install instructions
+- [x] Initial git commit and push to https://github.com/DevenVGokhale/ggcordist
 
 ### 2. Data container and inputs
 
@@ -116,3 +116,5 @@ Status key: `[x]` done, `[~]` done but not fully verified, `[ ]` not started.
 
 - 2026-11-05: Scaffolded package, implemented all functions above, 117 tests
   pass, `R CMD check` Status OK. Plan saved to `dev/PLAN.md`.
+- 2026-11-05: Published to GitHub (`main`). `reference/` (paper PDF and text)
+  is git-ignored for copyright reasons.
